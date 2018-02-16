@@ -1,0 +1,36 @@
+<button *ngIf="(su.estadoSesion=='Conectado' )" 
+		mat-raised-button color="primary"		
+		(click)="salir(content)"
+		class="usuario">
+	{{su.usuario}}-{{su.nombreUsuario}} (Salir) 
+</button>
+
+<div class="formaUsuario"   *ngIf="(su.estadoSesion!='Conectado' && tipo=='registro')">
+  	<form  #registroForma="ngForm" fxLayout="column" fxLayoutAlign="center none" fxLayoutGap="10px">
+  		<div class="modal-header">
+	    	<h3 class="modal-title">Solo personal autorizado</h3>
+	  	</div>
+      	<mat-form-field >
+		    <input matInput  
+		    		id="usuario" required [(ngModel)]="model.usuario" name="usuario" 
+		    		#usuario="ngModel"  
+		    		placeholder="Nombre de Usuario"  
+		    		pattern="^[a-z0-9_-]{2,15}$" >
+		</mat-form-field>
+
+    	<mat-form-field >
+		  <input 	matInput
+		  			type="password" id="password" required 
+		  			[(ngModel)]="model.password" name="password" 
+		  			placeholder="Contraseña" 
+		  			>
+		</mat-form-field>
+	  	<div *ngIf="su.mensajeError!=''" class="alert alert-danger">
+	  		{{su.mensajeError}}
+	  	</div>
+	  	<div class="modal-footer">
+	  		<button mat-raised-button color="primary"
+	  			[disabled]="!registroForma.form.valid" (click)="onSubmit()">Acceder</button>
+	  	</div>
+  	</form>
+</div>	  	
